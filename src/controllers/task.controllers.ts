@@ -3,6 +3,7 @@ import { AppDataSource } from "../configs/db.config";
 import { Task } from "../models/task.model";
 import { Request, Response } from "express";
 
+
 export class TaskController {
   async getTask(req: Request, res: Response) {
     try {
@@ -66,6 +67,3 @@ export class TaskController {
       .json({ code: 200, sucess: true, message: "task delete sucess" });
   }
 }
-
-//completed, pending, cancelled
-//CRUD - create, read, update, delete
