@@ -1,13 +1,13 @@
 import { title } from "node:process";
 import { AppDataSource } from "../configs/db.config";
-import { Task } from "../models/task.model";
+import { Tasks } from "../models/tasks.model";
 import { Request, Response } from "express";
 
 
-export class TaskController {
+export class TasksController {
   async getTask(req: Request, res: Response) {
     try {
-      const allTask = await AppDataSource.manager.find(Task);
+      const allTask = await AppDataSource.manager.find(Tasks);
 
       return res.status(200).json({ code: 200, sucess: true, data: allTask });
     } catch (error) {
@@ -17,7 +17,7 @@ export class TaskController {
 
   async createTask(req: Request, res: Response) {
     try {
-      const newTask = AppDataSource.manager.create(Task, {
+      const newTask = AppDataSource.manager.create(Tasks, {
         title: req.body.title,
         description: req.body.description,
         status: "pending",
@@ -31,7 +31,7 @@ export class TaskController {
   }
 
   async updateTask(req: Request, res: Response) {
-    const task = await AppDataSource.manager.findOneBy(Task, {
+    const task = await AppDataSource.manager.findOneBy(Tasks, {
       id: Number(req.params.id),
     });
 
@@ -41,7 +41,7 @@ export class TaskController {
         .json({ code: 404, sucess: false, message: "task not found" });
     }
 
-    const modificationTask = AppDataSource.manager.merge(Task, task, req.body);
+    const modificationTask = AppDataSource.manager.merge(Tasks, task, req.body);
     await AppDataSource.manager.save(modificationTask);
 
     return res
@@ -50,7 +50,7 @@ export class TaskController {
   }
 
   async deleteTask(req: Request, res: Response) {
-    const task = await AppDataSource.manager.findOneBy(Task, {
+    const task = await AppDataSource.manager.findOneBy(Tasks, {
       id: Number(req.params.id),
     });
 
@@ -60,7 +60,7 @@ export class TaskController {
         .json({ code: 404, sucess: false, message: "task not found" });
     }
 
-    await AppDataSource.manager.delete(Task, task.id);
+    await AppDataSource.manager.delete(Tasks, task.id);
 
     return res
       .status(200)
