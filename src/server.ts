@@ -1,11 +1,8 @@
 import "reflect-metadata";
-import express, { Express, Request, Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import { AppDataSource } from "./configs/db.config";
-import { error } from "node:console";
-import { TaskController } from "./controllers/task.controllers";
-import { router } from "./routes/task.routes";
-
+import { router } from "./routes/index.routes";
 dotenv.config();
 
 const app = express();
