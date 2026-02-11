@@ -14,7 +14,7 @@ export class BaseModel {
 }
 
 @Entity()
-export class Task extends BaseModel {
+export class Tasks extends BaseModel {
 
   @Column()
   title: string;
